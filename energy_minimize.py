@@ -33,7 +33,7 @@ def energy_minimize_pdbqt(input_directory, output_directory):
                 # Run the command to convert PDB file to PDBQT format
                 os.system(f"obabel {minimized_pdb} -opdbqt -xr -O {output_pdbqt}")
                 
-                print(f"Processed {filename}. Protonated file saved to {minimized_pdb}. PDBQT file saved to {output_pdbqt}")
+                print(f"Processed {filename}. minimized file saved to {minimized_pdb}. PDBQT file saved to {output_pdbqt}")
             except Exception as e:
                 print(f"Error processing {filename}: {e}")
 
