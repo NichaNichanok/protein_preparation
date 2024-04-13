@@ -37,16 +37,16 @@ def define_grid_bybindingres(input_path, csv_path, output_directory, pbind=0.8):
 
     # Select all binding residues
     pymol.cmd.select('binding_res', 'resi ' + '+'.join(map(str, binding_res)))
-    pymol.cmd.show('sphere', 'binding_res')
-    pymol.cmd.show('sticks', 'binding_res')  # Show sticks for binding residues
-    pymol.cmd.color('red', 'binding_res')
+    #pymol.cmd.show('sphere', 'binding_res')
+    #pymol.cmd.show('sticks', 'binding_res')  # Show sticks for binding residues
+    #pymol.cmd.color('red', 'binding_res')
 
     # Compute the overall center of mass
     binding_res_coords = pymol.cmd.centerofmass('resi ' + '+'.join(map(str, binding_res)))
 
 
     # Print the overall center of mass
-    print("Overall center of mass of binding residues:", binding_res_coords)
+    print(f"The grid coordinates of '{protein_name}' protein by selected binding residues with the pbind > {pbind}:", binding_res_coords)
 
     protein_name= input_path.split("/")[-1].split(".")[0]
 
@@ -70,9 +70,13 @@ def visualize_binding_residues(input_path, csv_path, pbind=0.8):
     # Load protein structure
     pymol.cmd.load(input_path, 'protein')
     pymol.cmd.hide()
-    pymol.cmd.bg_color("white")
-    pymol.cmd.show("mesh")
-    pymol.cmd.color("blue")
+    pymol.cmd.bg_color("black")
+    pymol.cmd.show("surface")
+    pymol.cmd.color("white")
+    pymol.cmd.select('LBM', 'resn LBM')
+    pymol.cmd.show('sticks', 'LBM')
+    pymol.cmd.util.cba('orange', 'LBM')
+
 
     # Initialize list to store binding residues
     binding_res = set()
@@ -88,10 +92,10 @@ def visualize_binding_residues(input_path, csv_path, pbind=0.8):
                 binding_res.add(resi)  # Add residue to binding_res set
 
     # Select all binding residues
-    pymol.cmd.select('binding_res', 'resi ' + '+'.join(map(str, binding_res)))
-    pymol.cmd.show('sphere', 'binding_res')
-    pymol.cmd.show('sticks', 'binding_res')  # Show sticks for binding residues
-    pymol.cmd.color('red', 'binding_res')
+    pymol.cmd.select(f'binding_res{pbind}', 'resi ' + '+'.join(map(str, binding_res)))
+    pymol.cmd.show('sphere', f'binding_res{pbind}')
+    pymol.cmd.show('sticks', f'binding_res{pbind}')  # Show sticks for binding residues
+    pymol.cmd.color('red', f'binding_res{pbind}')
 
     # Compute the overall center of mass
     binding_res_coords = pymol.cmd.centerofmass('resi ' + '+'.join(map(str, binding_res)))
@@ -103,5 +107,5 @@ if __name__ == "__main__":
     input_path = '/home/nauevech/Documents/protein_preparation/6o0k.pdb'
     csv_path = '/home/nauevech/Documents/protein_preparation/af2bind_6o0k_results.csv'
     output_directory = '/home/nauevech/Documents/protein_preparation/'
-    #visualize_binding_residues(input_path, csv_path)
-    define_grid_bybindingres(input_path, csv_path, output_directory)
+    visualize_binding_residues(input_path, csv_path, 0.7)
+    #define_grid_bybindingres(input_path, csv_path, output_directory)
