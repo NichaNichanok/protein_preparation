@@ -107,5 +107,5 @@ if __name__ == "__main__":
     input_path = '/home/nauevech/Documents/protein_preparation/6o0k.pdb'
     csv_path = '/home/nauevech/Documents/protein_preparation/af2bind_6o0k_results.csv'
     output_directory = '/home/nauevech/Documents/protein_preparation/'
-    visualize_binding_residues(input_path, csv_path, 0.7)
+    visualize_binding_residues(input_path, csv_path, 0.6)
     #define_grid_bybindingres(input_path, csv_path, output_directory)

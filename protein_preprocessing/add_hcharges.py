@@ -2,7 +2,6 @@ import os
 
 # this code requires the OpenBabel installation
 
-# Check the results, however some weird molecules show up :/
 
 def add_hcharges(input_directory, output_directory, pH=7.4):
     """
@@ -28,7 +27,7 @@ def add_hcharges(input_directory, output_directory, pH=7.4):
                 # Protonated PDB file path
                 protonated_pdb = os.path.join(output_directory, f"{os.path.splitext(filename)[0]}_protonated.pdb")
 
-                # Run the command to protonate at pH 7.4 and conduct local energy minimization on the input PDB file
+                # Run the command to protonate at pH 7.4, save in pdbq
                 os.system(f"obabel {input_pdb} -opdb -h -p {pH} -O {protonated_pdb}")
 
                 print(f"Processed {filename}. Protonated file saved to {protonated_pdb}.")

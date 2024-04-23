@@ -27,6 +27,10 @@ def fetch_ligand_name(pdb_id):
     
     Args:
     - PDB ID: 4 letter code protein from the RCSB.org website
+    
+    Output:
+    ligand_name (str) which defined in the pdb format
+    return none: if there is no further binding affinity annotation, i.e. apo form
     """
     # URL for the RCSB structure page with the provided PDB ID
     url = f"https://www.rcsb.org/structure/{pdb_id}"
@@ -54,6 +58,8 @@ def fetch_ligand_name(pdb_id):
             id_name = cell.get_text(strip=True)
 
             return id_name
+        else:
+            return None
 
 
 if __name__ == "__main__":
