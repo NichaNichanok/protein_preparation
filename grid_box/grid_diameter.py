@@ -35,17 +35,19 @@ def grid_diameter(input_path, ligand_name):
             # Calculate distance between the two atoms
             distance = pymol.cmd.distance(f'{atom_name1}_to_{atom_name2}', f'resname LBM and name {atom_name1}', f'resname LBM and name {atom_name2}')
             # Update maximum distance if needed
+            print(f"{i} distance: {distance}")
             max_distance = max(max_distance, distance)
+            print(f"max distance: {max_distance}")
     # Quit PyMOL
     pymol.cmd.quit()
 
-    return round(max_distance,3)
+    return round(max_distance)
 
 
     
 
 if __name__ == "__main__":
-    input_path = '6o0k.pdb'
-    ligand_name = 'LBM'  
+    input_path = '/home/nauevech/Documents/protein_preparation/protein_preparation/protein_preprocessing/input/6o0k.pdb'
+    ligand_name = 'dummie'  
     diameter = grid_diameter(input_path, ligand_name)
     print("Diameter of the ligand:", diameter, "Angstroms")

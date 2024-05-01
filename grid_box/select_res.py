@@ -103,9 +103,38 @@ def visualize_binding_residues(input_path, csv_path, pbind=0.8):
     # Print the overall center of mass
     print("Overall center of mass of binding residues:", binding_res_coords)
 
+    # Define grid coordinates based on center of mass and size
+    center_x, center_y, center_z = binding_res_coords
+    size = 34  # Size of the grid box
+
+    # Calculate vertices of the box
+    x_min = center_x - (size / 2)
+    x_max = center_x + (size / 2)
+    y_min = center_y - (size / 2)
+    y_max = center_y + (size / 2)
+    z_min = center_z - (size / 2)
+    z_max = center_z + (size / 2)
+
+    # Create a box object
+    box_name = "grid_box"
+    pymol.cmd.pseudoatom(box_name, pos=[0, 0, 0])  # Create a dummy atom to serve as the center
+    pymol.cmd.create(box_name, "byres ((x >= {}) and (x <= {})) and ((y >= {}) and (y <= {})) and ((z >= {}) and (z <= {}))".format(x_min, x_max, y_min, y_max, z_min, z_max))
+
+    # Show the box
+    pymol.cmd.show_as("surface", box_name)
+
+    # Center and zoom the view
+    pymol.cmd.zoom(box_name)
+
+    # Color the box
+    pymol.cmd.color("gray", box_name)
+
+    # Ensure the box is visible
+    pymol.cmd.show()
+
 if __name__ == "__main__":
     input_path = '/home/nauevech/Documents/protein_preparation/6o0k.pdb'
     csv_path = '/home/nauevech/Documents/protein_preparation/af2bind_6o0k_results.csv'
     output_directory = '/home/nauevech/Documents/protein_preparation/'
-    visualize_binding_residues(input_path, csv_path, 0.6)
+    visualize_binding_residues(input_path, csv_path, 0.8)
     #define_grid_bybindingres(input_path, csv_path, output_directory)

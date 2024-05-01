@@ -1,0 +1,83 @@
+CRYST1   90.610   90.610  122.410  90.00  90.00 120.00 P 32 2 1      1
+HETATM    1  C1  BRE A 397      50.033  43.306  -5.250  1.00 18.12           C  
+ANISOU    1  C1  BRE A 397     2439   2608   1837     -2     72     92       C  
+HETATM    2  N1  BRE A 397      49.967  41.949  -1.727  1.00 16.56           N  
+ANISOU    2  N1  BRE A 397     1962   2393   1935     97     75     83       N  
+HETATM    3  O1  BRE A 397      47.171  41.232  -5.868  1.00 21.50           O  
+ANISOU    3  O1  BRE A 397     2587   3655   1928    241     61   -175       O  
+HETATM    4  C2  BRE A 397      49.712  42.458  -4.037  1.00 17.98           C  
+ANISOU    4  C2  BRE A 397     2410   2607   1816    118    124     98       C  
+HETATM    5  O2  BRE A 397      49.169  40.460  -6.379  1.00 23.33           O  
+ANISOU    5  O2  BRE A 397     3135   3574   2154    171     84   -155       O  
+HETATM    6  C3  BRE A 397      50.234  42.754  -2.792  1.00 16.99           C  
+ANISOU    6  C3  BRE A 397     2045   2519   1893    152     95     83       C  
+HETATM    7  C4  BRE A 397      48.851  41.372  -4.163  1.00 17.57           C  
+ANISOU    7  C4  BRE A 397     2285   2541   1849    234    134      2       C  
+HETATM    8  C5  BRE A 397      48.299  41.031  -5.521  1.00 21.15           C  
+ANISOU    8  C5  BRE A 397     2723   3298   2014    100   -112    -53       C  
+HETATM    9  C6  BRE A 397      48.524  40.594  -3.052  1.00 17.94           C  
+ANISOU    9  C6  BRE A 397     2351   2617   1849     44     72     77       C  
+HETATM   10  C7  BRE A 397      49.113  40.919  -1.836  1.00 17.68           C  
+ANISOU   10  C7  BRE A 397     2263   2507   1949    -69     67    -94       C  
+HETATM   11  C8  BRE A 397      52.283  44.062  -3.309  1.00 19.49           C  
+ANISOU   11  C8  BRE A 397     2428   2810   2166    -52    119     62       C  
+HETATM   12  C9  BRE A 397      50.984  44.641  -1.357  1.00 18.60           C  
+ANISOU   12  C9  BRE A 397     2551   2505   2011    104    -28    -26       C  
+HETATM   13  C10 BRE A 397      47.599  39.556  -3.078  1.00 18.49           C  
+ANISOU   13  C10 BRE A 397     2248   2678   2100     63     20    -99       C  
+HETATM   14  C11 BRE A 397      48.781  40.210  -0.686  1.00 18.27           C  
+ANISOU   14  C11 BRE A 397     2382   2562   1997    121    -10     64       C  
+HETATM   15  C12 BRE A 397      53.165  45.055  -2.944  1.00 18.64           C  
+ANISOU   15  C12 BRE A 397     2311   2707   2066     32     58    119       C  
+HETATM   16  C13 BRE A 397      51.886  45.630  -1.000  1.00 18.40           C  
+ANISOU   16  C13 BRE A 397     2477   2529   1986     59     31     75       C  
+HETATM   17  C14 BRE A 397      47.269  38.855  -1.932  1.00 21.14           C  
+ANISOU   17  C14 BRE A 397     2962   3002   2068     22    -29    -19       C  
+HETATM   18  C15 BRE A 397      47.872  39.167  -0.723  1.00 18.98           C  
+ANISOU   18  C15 BRE A 397     2421   2662   2128     76     38    -69       C  
+HETATM   19  C16 BRE A 397      52.996  45.860  -1.829  1.00 20.05           C  
+ANISOU   19  C16 BRE A 397     2688   2872   2060    -30    138     88       C  
+HETATM   20  C17 BRE A 397      54.072  46.885  -1.423  1.00 21.13           C  
+ANISOU   20  C17 BRE A 397     2752   2926   2350     42    -79     16       C  
+HETATM   21  C18 BRE A 397      54.651  46.771  -0.148  1.00 21.37           C  
+ANISOU   21  C18 BRE A 397     2827   3023   2271    116     35    -38       C  
+HETATM   22  C19 BRE A 397      54.616  47.788  -2.329  1.00 23.37           C  
+ANISOU   22  C19 BRE A 397     3086   3270   2523    -54    -15    159       C  
+HETATM   23  C20 BRE A 397      55.678  47.613   0.247  1.00 23.28           C  
+ANISOU   23  C20 BRE A 397     3179   3166   2502    -97   -152    113       C  
+HETATM   24  C21 BRE A 397      56.186  48.532  -0.653  1.00 23.01           C  
+ANISOU   24  C21 BRE A 397     2942   3284   2517    -20    111     71       C  
+HETATM   25  C22 BRE A 397      55.639  48.629  -1.915  1.00 24.30           C  
+ANISOU   25  C22 BRE A 397     3277   3454   2502   -210     69      8       C  
+HETATM   26  C23 BRE A 397      51.170  43.872  -2.483  1.00 18.19           C  
+ANISOU   26  C23 BRE A 397     2414   2671   1826    -22     16     50       C  
+HETATM   27  F1  BRE A 397      46.397  37.974  -1.962  1.00 22.70           F  
+ANISOU   27  F1  BRE A 397     3237   2947   2441    -36    134   -144       F  
+CONECT    1    4
+CONECT    2   10    6
+CONECT    3    8
+CONECT    4    1    6    7
+CONECT    5    8
+CONECT    6    4    2   26
+CONECT    7    4    8    9
+CONECT    8    7    3    5
+CONECT    9    7   10   13
+CONECT   10    2    9   14
+CONECT   11   15   26
+CONECT   12   16   26
+CONECT   13    9   17
+CONECT   14   10   18
+CONECT   15   11   19
+CONECT   16   12   19
+CONECT   17   13   18   27
+CONECT   18   14   17
+CONECT   19   15   16   20
+CONECT   20   19   21   22
+CONECT   21   20   23
+CONECT   22   20   25
+CONECT   23   21   24
+CONECT   24   23   25
+CONECT   25   22   24
+CONECT   26    6   11   12
+CONECT   27   17
+END

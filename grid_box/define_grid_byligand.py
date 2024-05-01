@@ -14,7 +14,7 @@ def define_grid_byligand(input_path, output_directory):
     - input_path (str): Path to the directory containing PDB files.
     - output_directory (str): Path to the directory for saving modified PDB files.
     """
-    import __main__
+
     __main__.pymol_argv = ['pymol', '-qc']  # Quiet and no GUI
     # Initialize PyMOL
     pymol.finish_launching()

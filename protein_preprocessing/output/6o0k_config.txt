@@ -1,0 +1,9 @@
+receptor = 6o0k.pdbqt
+ligand = ligand.pdbqt
+center_x = -15.258
+center_y = 2.212
+center_z = -9.458
+
+size_x = 34.000
+size_y = 34.000
+size_z = 34.000
