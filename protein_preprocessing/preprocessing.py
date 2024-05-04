@@ -91,22 +91,28 @@ def crystal_processing(input_path, output_directory, pH = 7.4):
                 diameter = round(max_distance)
                 size = round(16 + 0.8*diameter)
 
-                # Process ligand
+                ## Process ligand
                 ligand_filename_pdb = os.path.splitext(filename)[0] + "_ligand.pdb"
                 ligand_pdb = os.path.join(output_directory, ligand_filename_pdb)
                 pymol.cmd.save(ligand_pdb, "ligand", format="pdb")
                 ligand_filename_pdbqt = os.path.splitext(filename)[0] + "_ligand.pdbqt"
                 output_pdbqt = os.path.join(output_directory, ligand_filename_pdbqt)
-                os.system(f"obabel {ligand_pdb} -opdbqt -xr -O {output_pdbqt}")
+                ligand_filename_smi = os.path.splitext(filename)[0] + "_ligand.smi"
+                output_smi = os.path.join(output_directory, ligand_filename_smi)
+                # add gastaiger charges, set TORDOF, convert to pdbqt and smi
+                os.system(f"obabel {ligand_pdb} -O {output_pdbqt} --gen3d -p TORDOF --partialcharge gasteiger")
 
-                # Process protein
+                ## Process protein
+                # remove non-protein molecules
                 pymol.cmd.remove("not polymer.protein")
                 output_filename_rmnpm = os.path.splitext(filename)[0] + "_rmnpm.pdb"
                 output_file_path_rmnpm = os.path.join(output_directory, output_filename_rmnpm)
                 pymol.cmd.save(output_file_path_rmnpm, format="pdb")
+                # protonate at pH 7.4 by default,use for partial charges (eem is Bultnck B3LYP/6-13G*/MPA)
                 output_filename_protonated = os.path.splitext(filename)[0] + "_protonated.pdb"
                 output_file_path_protonated = os.path.join(output_directory, output_filename_protonated)
-                os.system(f"obabel {output_file_path_rmnpm} -opdb -p {pH} -h -O {output_file_path_protonated}")
+                os.system(f"obabel {output_file_path_rmnpm} -opdb -p {pH} -partialcharge eem -O {output_file_path_protonated}")
+                # convert to pdbqt file
                 output_filename_processed = os.path.splitext(filename)[0] + "_processed.pdbqt"
                 output_file_path_processed = os.path.join(output_directory, output_filename_processed)
                 os.system(f"obabel {output_file_path_protonated} -opdbqt -xr -O {output_file_path_processed}")
