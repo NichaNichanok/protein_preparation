@@ -258,7 +258,9 @@ def grid_coordinate(target_pdb, pymol_cmd):
         config_file.write("center_z = {:.2f}\n".format(binding_res_coords[2]))
         config_file.write("\n")
         # size
-        config_file.write("size = {:.2f}\n".format(size))
+        config_file.write("size_x = {:.2f}\n".format(size))
+        config_file.write("size_y = {:.2f}\n".format(size))
+        config_file.write("size_z = {:.2f}\n".format(size))
 
     print(f"Output saved to {output_config_path}")
 
@@ -275,7 +277,7 @@ def main():
 
     binding_res_coords = run_af2bind(target_pdb=args.target, target_chain=args.chain, mask_sidechains=args.mask_sidechains, mask_sequence=args.mask_sequence)
     
-    pymol_cmd = "resi 112 + resi 137 + resi 149 + resi 115 + resi 133 + resi 108 + resi 104 + resi 152 + resi 153 + resi 146 + resi 111 + resi 156 + resi 136 + resi 145 + resi 148"
+    pymol_cmd = "resi 415 + resi 556 + resi 603 + resi 509 + resi 364 + resi 462 + resi 334 + resi 572 + resi 525 + resi 555 + resi 508 + resi 602 + resi 363 + resi 414 + resi 559"
     grid_coordinate(args.target, binding_res_coords)
 
 
