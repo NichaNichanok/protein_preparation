@@ -19,6 +19,16 @@ import __main__
 aa_order = {v: k for k, v in residue_constants.restype_order.items()}
 
 def get_pdb(pdb_code=""):
+    """ Download/ Load the protein structure pdb file"
+
+    **Args:**
+        `pdb_code (string)`: - according to rcsb, e.g. 6o0k, or
+                             - according to the Alphafold database, e.g. AF-Q16611-F1-model_v4, or
+                             - leave as an empty string first, and provides path for to the pdb-file
+
+    **Returns:**
+        `pdb_file`: protein structure in pdb file
+    """
     if pdb_code is None or pdb_code == "":
         pdb_file = input("Please provide the path to your PDB file: ")
         return pdb_file
@@ -33,9 +43,22 @@ def get_pdb(pdb_code=""):
         print(f"Dowloaded the {pdb_code} pdb structure from AlphaFold databased -website...")
         return f"AF-{pdb_code}-F1-model_v4.pdb"
     
-    #AF-Q16611-F1-model_v4
+    
 
 def af2bind(outputs, mask_sidechains=True, seed=0):
+    """
+    Calculate the binding probabilities from the outputs of the AlphaFold model.
+
+    **Args:**
+        - `outputs (dict)`: The outputs from the AlphaFold model containing pairwise representations.
+        - `mask_sidechains (bool, optional)`: Whether to mask sidechains in the calculation. Default is `True`.
+        - `seed (int, optional)`: Seed for reproducibility. Default is `0`.
+
+    **Returns:**
+        - `dict`: A dictionary containing:
+        - `p_bind (numpy.ndarray)`: Binding probabilities for each residue.
+        - `p_bind_aa (numpy.ndarray)`: Binding probabilities for each amino acid.
+    """
     pair_A = outputs["representations"]["pair"][:-20, -20:]
     pair_B = outputs["representations"]["pair"][-20:, :-20].swapaxes(0, 1)
     pair_A = pair_A.reshape(pair_A.shape[0], -1)
@@ -60,6 +83,20 @@ def af2bind(outputs, mask_sidechains=True, seed=0):
     return {"p_bind": p_bind, "p_bind_aa": p_bind_aa}
 
 def run_af2bind(target_pdb, target_chain, mask_sidechains=True, mask_sequence=False):
+    """
+    Calculate the binding residues of a target protein.
+
+    **Args:**
+    - `target_pdb (string)`: PDB code (according to RCSB or AlphaFold database), or the path to the PDB file.
+    - `target_chain (string)`: Chain identifier in the PDB file.
+    - `mask_sidechains (bool, optional)`: Whether to mask sidechains in the calculation. Default is `True`.
+    - `mask_sequence (bool, optional)`: Whether to mask the sequence in the calculation. Default is `False`.
+
+    **Returns:**
+    - `string`: PyMOL selection command for the top 15 binding residues.
+    - `results_{target_pdb}.csv`: CSV file containing the binding probabilities for each residue.
+
+    """
     target_pdb = target_pdb.replace(" ", "")
     target_chain = target_chain.replace(" ", "")
     if target_chain == "":
@@ -122,6 +159,19 @@ def run_af2bind(target_pdb, target_chain, mask_sidechains=True, mask_sequence=Fa
 
     
 def grid_coordinate(target_pdb, pymol_cmd, size=34):
+    """
+    Calculate the grid coordinate (center of mass) from the list of selected residues
+
+    **Args:**
+        `target_pdb (string)`: pdb-code (according to rcsb, or 
+                                         according to the Alphafold database), 
+                               or as an empty string first, and provides path for to the pdb-file
+        `pymol_cmd (string)`: selected list of binding residues e.g. "resi 112 + resi 137 + resi 149 + resi 115"
+
+    **Returns:**
+        `summary (string)`: summary of the calculate the grid coordinate according to the selected list of binding residues
+        `config_{target_pdb} in text file`: config file with all the calculated value 
+    """
 
     protein_structure = get_pdb(target_pdb)
     
@@ -158,8 +208,11 @@ def grid_coordinate(target_pdb, pymol_cmd, size=34):
     with open(output_config_path, "w") as config_file:
         config_file.write(f"The grid coordinates of '{target_pdb}' protein by top 15 amino acids:\n")
         config_file.write("center_x = {:.2f}\n".format(binding_res_coords[0]))
-        config_file.write("center_y: {:.2f}\n".format(binding_res_coords[1]))
-        config_file.write("center_z: {:.2f}\n".format(binding_res_coords[2]))
+        config_file.write("center_y = {:.2f}\n".format(binding_res_coords[1]))
+        config_file.write("center_z = {:.2f}\n".format(binding_res_coords[2]))
+        config_file.write("/n")
+        # size
+        config_file.write("size = {:.2f}\n".format(size))
 
     print(f"Output saved to {output_config_path}")
 
