@@ -12,7 +12,7 @@ from scipy.special import expit as sigmoid
 from colabdesign import mk_afdesign_model, clear_mem
 from colabdesign.af.alphafold.common import residue_constants, protein
 import py3Dmol
-import pymol 
+#import pymol 
 
 # Define aa_order dictionary
 aa_order = {v: k for k, v in residue_constants.restype_order.items()}
@@ -29,7 +29,10 @@ def get_pdb(pdb_code=""):
         return f"{pdb_code}.pdb"
     else:
         os.system(f"wget -qnc https://alphafold.ebi.ac.uk/files/AF-{pdb_code}-F1-model_v4.pdb")
+        print(f"Dowloaded the {pdb_code} pdb structure from AlphaFold databased -website...")
         return f"AF-{pdb_code}-F1-model_v4.pdb"
+    
+    #AF-Q16611-F1-model_v4
 
 def af2bind(outputs, mask_sidechains=True, seed=0):
     pair_A = outputs["representations"]["pair"][:-20, -20:]
@@ -86,22 +89,24 @@ def run_af2bind(target_pdb, target_chain, mask_sidechains=True, mask_sequence=Fa
     # Process results
     labels = ["chain", "resi", "resn", "p(bind)"]
     data = []
-    for i in range(af_model._target_len):
-        c = af_model._pdb["idx"]["chain"][i]
-        r = af_model._pdb["idx"]["residue"][i]
-        a = aa_order.get(af_model._pdb["batch"]["aatype"][i], "X")
-        p = pred_bind[i]
+    for i in range(af_model._target_len): #loop through all res
+        c = af_model._pdb["idx"]["chain"][i] # get chain identifier
+        r = af_model._pdb["idx"]["residue"][i] #get res index
+        a = aa_order.get(af_model._pdb["batch"]["aatype"][i], "X") # get aa type
+        p = pred_bind[i] #get the binding proba
         data.append([c, r, a, p])
 
     df = pd.DataFrame(data, columns=labels)
-    df.to_csv(f'results_{target_pdb}.csv')
+    df.to_csv(f'results_{target_pdb}.csv') #save in pdf file
 
+    #sort list by binding proba, print the top15
     df_sorted = df.sort_values("p(bind)", ascending=False, ignore_index=True).rename_axis('rank').reset_index()
     print(df_sorted.head(15))
 
+    #Generate the pymol selection command for top 15 bind-res
     top_n = 15
     top_n_idx = pred_bind.argsort()[::-1][:15]
-    pymol_cmd = "select ch" + str(target_chain) + ","
+    pymol_cmd = "select"
     for n, i in enumerate(top_n_idx):
         p = pred_bind[i]
         c = af_model._pdb["idx"]["chain"][i]
@@ -113,6 +118,7 @@ def run_af2bind(target_pdb, target_chain, mask_sidechains=True, mask_sequence=Fa
     print("\n🧪 Pymol Selection Cmd:")
     print(pymol_cmd)
     return pymol_cmd
+
     
 def grid_coordinate(target_pdb, pymol_cmd, size=34):
     
@@ -166,7 +172,7 @@ def main():
 
     binding_res_coords = run_af2bind(target_pdb=args.target, target_chain=args.chain, mask_sidechains=args.mask_sidechains, mask_sequence=args.mask_sequence)
     
-    grid_coordinate(target_pdb=args.target, binding_res_coords)
+    #grid_coordinate(target_pdb=args.target, binding_res_coords)
 
 
 
