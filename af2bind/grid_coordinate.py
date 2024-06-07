@@ -12,7 +12,8 @@ from scipy.special import expit as sigmoid
 from colabdesign import mk_afdesign_model, clear_mem
 from colabdesign.af.alphafold.common import residue_constants, protein
 import py3Dmol
-#import pymol 
+import pymol 
+import __main__
 
 # Define aa_order dictionary
 aa_order = {v: k for k, v in residue_constants.restype_order.items()}
@@ -121,18 +122,20 @@ def run_af2bind(target_pdb, target_chain, mask_sidechains=True, mask_sequence=Fa
 
     
 def grid_coordinate(target_pdb, pymol_cmd, size=34):
+
+    protein_structure = get_pdb(target_pdb)
     
     __main__.pymol_argv = ['pymol', '-qc']  # Quiet and no GUI
     pymol.finish_launching()
 
     # Load protein structure
-    pymol.cmd.load(target_pdb, 'protein')
+    pymol.cmd.load(protein_structure, 'protein')
 
     # Initialize list to store binding residues
     binding_res = set()
     # Compute the overall center of mass
     #binding_res_coords = pymol.centerofmass('resi ' + '+'.join(map(str, pymol_cmd)))
-    binding_res_coords = pymol.centerofmass(pymol_cmd)
+    binding_res_coords = pymol.cmd.centerofmass(pymol_cmd)
     
     # Print the overall center of mass
     print("Overall center of mass of binding residues:", binding_res_coords)
@@ -151,7 +154,7 @@ def grid_coordinate(target_pdb, pymol_cmd, size=34):
     protein_name= target_pdb.split("/")[-1].split(".")[0]
 
     # Save the coordinates of the binding residues' center of mass to a text file
-    output_config_path = os.path.join(os.pwd, f"config_{target_pdb}.txt")
+    output_config_path = os.path.join(os.getcwd(), f"config_{target_pdb}.txt")
     with open(output_config_path, "w") as config_file:
         config_file.write(f"The grid coordinates of '{target_pdb}' protein by top 15 amino acids:\n")
         config_file.write("center_x = {:.2f}\n".format(binding_res_coords[0]))
@@ -171,10 +174,10 @@ def main():
     parser.add_argument("-m", "--mask_sequence", action="store_true", help="Mask sequence (default: False)")
     args = parser.parse_args()
 
-    binding_res_coords = run_af2bind(target_pdb=args.target, target_chain=args.chain, mask_sidechains=args.mask_sidechains, mask_sequence=args.mask_sequence)
+    #binding_res_coords = run_af2bind(target_pdb=args.target, target_chain=args.chain, mask_sidechains=args.mask_sidechains, mask_sequence=args.mask_sequence)
     
     pymol_cmd = "resi 112 + resi 137 + resi 149 + resi 115 + resi 133 + resi 108 + resi 104 + resi 152 + resi 153 + resi 146 + resi 111 + resi 156 + resi 136 + resi 145 + resi 148"
-    #grid_coordinate(args.target, pymol_cmd)
+    grid_coordinate(args.target, pymol_cmd)
 
 
 
