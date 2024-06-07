@@ -173,7 +173,8 @@ def main():
 
     binding_res_coords = run_af2bind(target_pdb=args.target, target_chain=args.chain, mask_sidechains=args.mask_sidechains, mask_sequence=args.mask_sequence)
     
-    #grid_coordinate(args.target, binding_res_coords)
+    pymol_cmd = "resi 112 + resi 137 + resi 149 + resi 115 + resi 133 + resi 108 + resi 104 + resi 152 + resi 153 + resi 146 + resi 111 + resi 156 + resi 136 + resi 145 + resi 148"
+    #grid_coordinate(args.target, pymol_cmd)
 
 
 
