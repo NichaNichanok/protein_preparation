@@ -106,7 +106,7 @@ def run_af2bind(target_pdb, target_chain, mask_sidechains=True, mask_sequence=Fa
     #Generate the pymol selection command for top 15 bind-res
     top_n = 15
     top_n_idx = pred_bind.argsort()[::-1][:15]
-    pymol_cmd = "select"
+    pymol_cmd = ""
     for n, i in enumerate(top_n_idx):
         p = pred_bind[i]
         c = af_model._pdb["idx"]["chain"][i]
@@ -131,8 +131,9 @@ def grid_coordinate(target_pdb, pymol_cmd, size=34):
     # Initialize list to store binding residues
     binding_res = set()
     # Compute the overall center of mass
-    binding_res_coords = py3Dmol.c.centerofmass('resi ' + '+'.join(map(str, pymol_cmd)))
-
+    #binding_res_coords = pymol.centerofmass('resi ' + '+'.join(map(str, pymol_cmd)))
+    binding_res_coords = pymol.centerofmass(pymol_cmd)
+    
     # Print the overall center of mass
     print("Overall center of mass of binding residues:", binding_res_coords)
 
@@ -172,7 +173,7 @@ def main():
 
     binding_res_coords = run_af2bind(target_pdb=args.target, target_chain=args.chain, mask_sidechains=args.mask_sidechains, mask_sequence=args.mask_sequence)
     
-    #grid_coordinate(target_pdb=args.target, binding_res_coords)
+    #grid_coordinate(args.target, binding_res_coords)
 
 
 
