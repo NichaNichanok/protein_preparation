@@ -1,7 +1,6 @@
 # Predict the Search space (grid box) for further molecular docking
 
-- Translate the Af2bind colab notebook (See link below) for local running
-https://github.com/sokrypton/af2bind
+- Translate the Af2bind colab notebook for local running: https://github.com/sokrypton/af2bind
 - Based on binding residues predicted by the Af2bind
 - Note: This test version (gridbox_af2bind.py) only worked for the single binding site at the moment
 
